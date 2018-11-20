@@ -1,0 +1,6 @@
+{
+    "DEBUG": true,
+    "CREATE_DB": true,
+    "FIRST_RUN": true,
+    "DB_URI": "db_uri"
+  }

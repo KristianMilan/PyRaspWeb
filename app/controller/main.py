@@ -1,8 +1,10 @@
 # Author: Junior Tada
+import flask
 from app import app, log
 from flask import render_template
-import flask
 from platform import python_version
+import os
+import json
 
 
 @app.route('/')
@@ -23,6 +25,14 @@ def about():
 @app.route('/backup')
 def backup():
     return render_template('backup.html')
+
+@app.route('/config')
+def config():
+	path = f'{os.getcwd()}/app/data/db.json'
+	with open(path) as file:
+		data = json.load(file)
+		print(data['schemas'])
+		return render_template('config.html', data=data['schemas'])
 
 @app.route('/detail/<int:id>')
 def detail(id):

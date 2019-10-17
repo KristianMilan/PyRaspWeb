@@ -13,6 +13,8 @@ def index():
 @app.route('/about')
 def about():
     info = {}
+    info['Author'] = 'Junior Tada'
+    info['Email'] = 'juniortada@gmail.com'
     info['pyraspweb'] = '0.1'
     info['python'] = python_version()
     info['flask'] = flask.__version__

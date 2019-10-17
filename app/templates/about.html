@@ -12,18 +12,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>PyRaspWeb</td>
-          <td>{{info['pyraspweb']}}</td>
-        </tr>
-        <tr>
-          <td>Python</td>
-          <td>{{info['python']}}</td>
-        </tr>
-        <tr>
-          <td>Flask</td>
-          <td>{{info['flask']}}</td>
-        </tr>
+        {% for key in info.keys() %}
+          <tr>
+            <td>{{key}}</td>
+            <td>{{info[key]}}</td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
 

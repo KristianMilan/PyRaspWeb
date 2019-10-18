@@ -10,7 +10,17 @@ import json
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+	data = None
+	try:
+		path = f'{os.getcwd()}/app/data/db.json'
+		with open(path) as file:
+			data = json.load(file)
+			if data['schemas']:
+				data=data['schemas']
+	except Exception as e:
+		data = [{'error': e}]
+	finally:
+		return render_template('index.html', data=data)
 
 @app.route('/about')
 def about():
@@ -28,11 +38,6 @@ def backup():
 
 @app.route('/config', methods=['GET', 'POST'])
 def config():
-	# path = f'{os.getcwd()}/app/data/db.json'
-	# with open(path) as file:
-	# 	data = json.load(file)
-	# 	print(data['schemas'])
-	# 	return render_template('config.html', data=data['schemas'])
 	if request.method == 'POST':	
 		try:
 			path = f'{os.getcwd()}/app/data/db.json'

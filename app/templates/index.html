@@ -13,16 +13,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr ondblclick="location.href='{{ url_for("detail", id=1) }}'">
-          <td>1</td>
-          <td>Aeroponic 1</td>
-          <td><span class="badge badge-pill badge-success handler"><span>ON</span> <i class="fas fa-check"></i></span></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Aeroponic 2</td>
-          <td><span class="badge badge-pill badge-danger handler"><span>OFF</span> <i class="fas fa-times"></i></span></td>
-        </tr>
+        {% for el in data %}
+          <tr ondblclick="location.href='{{ url_for("detail", id=loop.index -1) }}'">
+            <td>{{loop.index}}</td>
+            <td>{{el.name}}</td>
+            <td>
+              {% if el.status == 'ON' %}
+                <span class="badge badge-pill badge-success handler"><span>ON</span> <i class="fas fa-check"></i></span>
+              {% else %}
+                <span class="badge badge-pill badge-danger handler"><span>OFF</span> <i class="fas fa-times"></i></span>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
 

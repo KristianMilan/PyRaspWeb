@@ -4,34 +4,32 @@
 
     <h5 class="submenu"><i class="fas fa-home"></i> Control Panel</h5>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Controller</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for el in data %}
-          <tr ondblclick="location.href='{{ url_for("detail", id=loop.index -1) }}'">
-            <td>{{loop.index}}</td>
-            <td>{{el.name}}</td>
-            <td>
-              {% if el.status == 'ON' %}
-                <span class="badge badge-pill badge-success handler"><span>ON</span> <i class="fas fa-check"></i></span>
-              {% else %}
-                <span class="badge badge-pill badge-danger handler"><span>OFF</span> <i class="fas fa-times"></i></span>
-              {% endif %}
-            </td>
+    <div class="overflow-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Controller</th>
+            <th scope="col">Status</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-    <div  class="footer">
-      <p>Author: Junior Tada</p>
-      <p>Simple irrigation control system with raspberry pi</p>
+        </thead>
+        <tbody>
+            {% for el in data %}
+              <tr ondblclick="location.href='{{ url_for("detail", id=loop.index -1) }}'">
+                <td>{{loop.index}}</td>
+                <td>{{el.name}}</td>
+                <td>
+                  {% if el.status == 'ON' %}
+                    <span class="badge badge-pill badge-success handler"><span>ON</span> <i class="fas fa-check"></i></span>
+                  {% else %}
+                    <span class="badge badge-pill badge-danger handler"><span>OFF</span> <i class="fas fa-times"></i></span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
     </div>
 
   </div><!-- /.container -->

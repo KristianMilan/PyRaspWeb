@@ -2,7 +2,7 @@
   {% block body %}
   <div class="container">
 
-    <h5 class="submenu"><i class="fas fa-cog"></i> Config</h5>
+    <h5 class="center"><i class="fas fa-cog"></i> Config</h5>
 
     <div class="form-group">
     	<label>Controller Name:</label>
@@ -29,7 +29,7 @@
     <br>
     <div class="form-group">
     	<div class="row">
-    		<div class="col center"><button type="button" class="btn btn-success" id="btn_save"><i class="fas fa-check"></i> Save</button></div>
+    		<div class="col right"><button type="button" class="btn btn-success" id="btn_save"><i class="fas fa-check"></i> Save</button></div>
     		<div class="col"><button type="button" class="btn btn-secondary" onclick="location.href='{{ url_for('index')}}';"><i class="fas fa-undo-alt"></i> Back</button></div>
     	</div>
     </div>
@@ -37,14 +37,11 @@
   </div><!-- /.container -->
 
   <style type="text/css">
-    tr{
-      text-align: center;
-    }
-    .submenu{
-      text-align: center;
-    }
     .center{
-    	text-align: right;
+    	text-align: center;
+    }
+    .right{
+      text-align: right;
     }
   </style>
   {% endblock %}
@@ -67,7 +64,7 @@
 					contentType: 'application/json',
 					url: '/config',
 					type: "POST",
-	                data: JSON.stringify(controller),
+	        data: JSON.stringify(controller),
 					success: success
 				});	
   			} else{

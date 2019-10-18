@@ -1,5 +1,53 @@
 {
-	"schemas":[
-
-	]
+    "schemas": [
+        {
+            "name": "tete",
+            "port": "11",
+            "isLoop": "ON",
+            "repeat_time": "22",
+            "duration_time": "33"
+        },
+        {
+            "name": "tete",
+            "port": "11",
+            "isLoop": "ON",
+            "repeat_time": "22",
+            "duration_time": "33"
+        },
+        {
+            "name": "bbbb",
+            "port": "33",
+            "isLoop": true,
+            "repeat_time": "44",
+            "duration_time": "55"
+        },
+        {
+            "name": "aeroponics",
+            "port": "11",
+            "isLoop": true,
+            "repeat_time": "77",
+            "duration_time": "88"
+        },
+        {
+            "name": "asd",
+            "port": "dd",
+            "isLoop": false,
+            "repeat_time": "dd",
+            "duration_time": "dd"
+        },
+        {
+            "name": "asd",
+            "port": "asdf",
+            "isLoop": true,
+            "repeat_time": "asda",
+            "duration_time": "sdf"
+        },
+        {
+            "name": "asd",
+            "port": "sdf",
+            "isLoop": true,
+            "repeat_time": "sdf",
+            "duration_time": "sdf"
+        }
+    ]
 }

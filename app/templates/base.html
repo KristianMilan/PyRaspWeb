@@ -78,6 +78,24 @@
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <!-- Fontawesome -->
     <script src="{{ url_for('static', filename='js/all.min.js') }}"></script>
+
+    <script type="text/javascript">
+      // change status on/off
+      $('.handler').click(function(){
+        // get status for front-end change
+        var status = $(this).children().text();
+        // get id for back-end change
+        var id = $(this).parent().prev().prev().text();
+        if(status == 'ON'){
+          $(this).toggleClass('badge-success badge-danger');
+          $(this).html('<span>OFF</span> <i class="fas fa-times"></i>');
+        }
+        else{
+          $(this).toggleClass('badge-danger badge-success');
+          $(this).html('<span>ON</span> <i class="fas fa-check"></i>');
+        }
+      });
+    </script>
     {% block javascript %}{% endblock %}
   </body>
 </html>

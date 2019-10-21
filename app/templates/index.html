@@ -14,6 +14,7 @@
           </tr>
         </thead>
         <tbody>
+          {% if data %}
             {% for el in data %}
               <tr ondblclick="location.href='{{ url_for("detail", id=loop.index -1) }}'">
                 <td>{{loop.index}}</td>
@@ -27,6 +28,12 @@
                 </td>
               </tr>
             {% endfor %}
+          {% else %}
+            <tr>
+              <td></td>
+              <td><span class="empty_text">Not Found! </span><span class="empty_btn"><button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('config')}}';"><i class="fas fa-cog"></i> Back</button></span></td>
+              <td></td>
+            </tr>
           {% endif %}
         </tbody>
       </table>
@@ -52,6 +59,12 @@
     }
     .footer p{
       font-size: .8rem;
+    }
+    .empty_text{
+      float: left;
+    }
+    .empty_btn{
+      float: right;
     }
     </style>
   {% endblock %}

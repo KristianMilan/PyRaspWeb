@@ -1,7 +1,7 @@
 # Author: Junior Tada
 import flask
 from app import app, log
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import render_template, request, redirect, url_for, jsonify, send_from_directory
 from platform import python_version
 import os
 import json
@@ -11,17 +11,17 @@ path = f'{os.getcwd()}/app/data/db.json'
 @app.route('/')
 @app.route('/index')
 def index():
-	data = None
+	objs = None
 	try:
 		path = f'{os.getcwd()}/app/data/db.json'
 		with open(path) as file:
 			data = json.load(file)
-			if data['schemas']:
-				data=data['schemas']
+			if data['schemas'] and (len(data['schemas']) > 0):
+				objs=data['schemas']
 	except Exception as e:
-		data = [{'error': e}]
+		objs = [{'error': e}]
 	finally:
-		return render_template('index.html', data=data)
+		return render_template('index.html', data=objs)
 
 @app.route('/about')
 def about():
@@ -70,6 +70,11 @@ def detail(id):
         data = [{'error': e}]
     finally:
         return render_template('detail.html', data=data)
+
+@app.route('/download/<path:file>', methods=['GET', 'POST'])
+def download(file):
+	path = f'{os.getcwd()}/app/data/'
+	return send_from_directory(directory=path, filename=file)
 
 @app.route('/_delete', methods=['POST'])
 def _delete():

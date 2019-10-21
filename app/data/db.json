@@ -1,3 +1,12 @@
 {
-    "schemas": []
+    "schemas": [
+        {
+            "name": "Blink Led",
+            "port": "11",
+            "status": "ON",
+            "isLoop": false,
+            "repeat_time": "",
+            "duration_time": ""
+        }
+    ]
 }

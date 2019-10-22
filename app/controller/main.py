@@ -98,3 +98,19 @@ def _delete():
         msg = {'value': m, 'status': 'ERROR'}
     finally:
         return jsonify(return_msg=msg)
+
+@app.route('/_toggle_status', methods=['POST'])
+def _toggle_status():
+	print('toggle')
+	try:
+		id = 1
+		if id >= 0:
+			with open(path, 'r+') as file:
+				data = json.load(file)
+				if data['schemas'][id]
+					print(data['schemas'][id])
+					msg = {'value': 'success', 'status': 'SUCCESS'}
+	except Exception as e:
+		msg = {'value': e, 'status': 'ERROR'}
+	finally:
+		return jsonify(return_msg=msg)

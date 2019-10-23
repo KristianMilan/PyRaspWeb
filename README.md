@@ -1,7 +1,7 @@
 # PyRaspWeb
 Simple mobile web control system with raspberry pi
 
-- python3
+- python 3.6
 - flask
-- bootstrap
-- fontawesome 
+- bootstrap 4
+- fontawesome 5.11.6

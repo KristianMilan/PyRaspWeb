@@ -40,7 +40,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title"><i class="far fa-image"></i> Pin Layout</h5>
+            <h5 class="modal-title"><i class="fab fa-raspberry-pi"></i> Pin Layout</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -70,6 +70,17 @@
 
   {% block javascript %}
     <script type="text/javascript">
+      $('.loop').click(function(){
+        var status = $(this).children().text();
+        if(status == 'ON'){
+          $(this).toggleClass('badge-success badge-danger');
+          $(this).html('<span>OFF</span> <i class="fas fa-times"></i>');
+        } else{
+          $(this).toggleClass('badge-danger badge-success');
+          $(this).html('<span>ON</span> <i class="fas fa-check"></i>');
+        }
+      });
+
     	$('#btn_save').click(function(){
     		let controller = {
     			name: $('#name').val(),
@@ -106,6 +117,6 @@
     			$('#errorModal').modal('show');
     			console.log(msg);
     		}
-    	}
+    	};
     </script>
   {% endblock %}

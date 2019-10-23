@@ -123,9 +123,7 @@ def _toggle_status():
                 # log status change
     except Exception as e:
         msg = {'value': e, 'status': 'ERROR'}
-        return jsonify(return_msg=msg)
     except UnboundLocalError as e:
         msg = {'value': e, 'status': 'ERROR'}
-        return jsonify(return_msg=msg)
     finally:
         return jsonify(return_msg=msg)

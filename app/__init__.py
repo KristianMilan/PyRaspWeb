@@ -24,9 +24,12 @@ log = app.logger
 # HTTP error handling
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html'), 404
+    return render_template('404.html', error=error), 404
 
-# HTTP error handling
+@app.errorhandler(405)
+def not_allowed(error):
+    return render_template('405.html', error=error), 405
+
 @app.errorhandler(500)
 def internal_error(error):
     return render_template('500.html'), 500

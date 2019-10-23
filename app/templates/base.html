@@ -89,6 +89,12 @@
       #menu-icon {
         float: right;
       }
+      .center{
+        text-align: center;
+      }
+      .right{
+        text-align: right;
+      }
     </style>
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- jQuery -->
@@ -104,18 +110,34 @@
       // change status on/off
       $('.handler').click(function(){
         // get status for front-end change
-        var status = $(this).children().text();
         // get id for back-end change
-        var id = $(this).parent().prev().prev().text();
-        if(status == 'ON'){
-          $(this).toggleClass('badge-success badge-danger');
-          $(this).html('<span>OFF</span> <i class="fas fa-times"></i>');
-        }
-        else{
-          $(this).toggleClass('badge-danger badge-success');
-          $(this).html('<span>ON</span> <i class="fas fa-check"></i>');
+        let data = {
+            id: $(this).parent().prev().prev().text(),
+            status: $(this).children().text()
+        };
+        if(data.id >= 0){
+          $.ajax({
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '/_toggle_status',
+            type: "POST",
+            data: JSON.stringify(data),
+            success: success
+          });
         }
       });
+
+      function success(json){
+        if(json.return_msg.status == 'SUCCESS'){
+          location.href='{{ url_for('index')}}';
+        }
+        else{
+          let msg = json.return_msg.value;
+          $('#errorMsg').text(msg);
+          $('#errorModal').modal('show');
+          console.log(msg);
+        }
+      }
     </script>
     {% block javascript %}{% endblock %}
   </body>

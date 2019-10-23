@@ -11,17 +11,17 @@ path = f'{os.getcwd()}/app/data/db.json'
 @app.route('/')
 @app.route('/index')
 def index():
-	objs = None
-	try:
-		path = f'{os.getcwd()}/app/data/db.json'
-		with open(path) as file:
-			data = json.load(file)
-			if data['schemas'] and (len(data['schemas']) > 0):
-				objs=data['schemas']
-	except Exception as e:
-		objs = [{'error': e}]
-	finally:
-		return render_template('index.html', data=objs)
+    objs = None
+    try:
+        path = f'{os.getcwd()}/app/data/db.json'
+        with open(path) as file:
+            data = json.load(file)
+            if data['schemas'] and (len(data['schemas']) > 0):
+                objs=data['schemas']
+    except Exception as e:
+        objs = [{'error': e}]
+    finally:
+        return render_template('index.html', data=objs)
 
 @app.route('/about')
 def about():
@@ -39,23 +39,25 @@ def backup():
 
 @app.route('/config', methods=['GET', 'POST'])
 def config():
-	if request.method == 'POST':	
-		try:
-			with open(path, 'r+') as file:
-				data = json.load(file)
-				data['schemas'].append(request.get_json())
-				file.seek(0)
-				json.dump(data, file, indent=4)
-				file.truncate()
-			m = 'Save Success'
-			msg = {'value': m, 'status': 'SUCCESS'}
-		except Exception as e:
-			m = f'Save {e}'
-			msg = {'value': m, 'status': 'ERROR'}
-		finally:
-			return jsonify(return_msg=msg)
-	else:
-		return render_template('config.html')
+    if request.method == 'POST':    
+        try:
+            with open(path, 'r+') as file:
+                data = json.load(file)
+                data['schemas'].append(request.get_json())
+                file.seek(0)
+                json.dump(data, file, indent=4)
+                file.truncate()
+            # TODO
+            # create log file
+            m = 'Save Success'
+            msg = {'value': m, 'status': 'SUCCESS'}
+        except Exception as e:
+            m = f'Save {e}'
+            msg = {'value': m, 'status': 'ERROR'}
+        finally:
+            return jsonify(return_msg=msg)
+    else:
+        return render_template('config.html')
 
 @app.route('/detail/<int:id>')
 def detail(id):
@@ -73,8 +75,8 @@ def detail(id):
 
 @app.route('/download/<path:file>', methods=['GET', 'POST'])
 def download(file):
-	path = f'{os.getcwd()}/app/data/'
-	return send_from_directory(directory=path, filename=file)
+    path = f'{os.getcwd()}/app/data/'
+    return send_from_directory(directory=path, filename=file)
 
 @app.route('/_delete', methods=['POST'])
 def _delete():
@@ -90,6 +92,8 @@ def _delete():
                 file.seek(0)
                 json.dump(data, file, indent=4)
                 file.truncate()
+                # TODO
+                # delete log file
         else:
             m = 'Error: Invalid ID!'
             msg = {'value': m, 'status': 'ERROR'}
@@ -101,16 +105,27 @@ def _delete():
 
 @app.route('/_toggle_status', methods=['POST'])
 def _toggle_status():
-	print('toggle')
-	try:
-		id = 1
-		if id >= 0:
-			with open(path, 'r+') as file:
-				data = json.load(file)
-				if data['schemas'][id]
-					print(data['schemas'][id])
-					msg = {'value': 'success', 'status': 'SUCCESS'}
-	except Exception as e:
-		msg = {'value': e, 'status': 'ERROR'}
-	finally:
-		return jsonify(return_msg=msg)
+    try:
+        ajax = request.get_json()
+        id = int(ajax['id']) - 1
+        if id >= 0:
+            with open(path, 'r+') as file:
+                data = json.load(file)
+                if data['schemas'][id]['status'] == 'ON':
+                    data['schemas'][id]['status'] = 'OFF'
+                else:
+                    data['schemas'][id]['status'] = 'ON'
+                file.seek(0)
+                json.dump(data, file, indent=4)
+                file.truncate()
+                msg = {'value': 'Toggle Success', 'status': 'SUCCESS'}
+                # TODO
+                # log status change
+    except Exception as e:
+        msg = {'value': e, 'status': 'ERROR'}
+        return jsonify(return_msg=msg)
+    except UnboundLocalError as e:
+        msg = {'value': e, 'status': 'ERROR'}
+        return jsonify(return_msg=msg)
+    finally:
+        return jsonify(return_msg=msg)

@@ -2,8 +2,12 @@
   {% block body %}
   <div class="container">
 
-    <h5 class="submenu">405</h5>
+    <h5 class="center">{{error.code}}</h5>
 
-    <p>Oops, Method Not Allowed</p>
+    <div class="form-group">
+      <label>Oops, Method Not Allowed</label>
+      <small class="form-text text-muted">{{error}}</small>
+    </div>
+
   </div>
   {% endblock %}

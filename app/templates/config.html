@@ -11,15 +11,15 @@
     </div>
 
     <div class="form-group">
-    	<label>Raspberry Port:</label>
-    	<input type="text" class="form-control" name="port" id="port" placeholder="GPIO Port">
-    	<small class="form-text text-muted">set a number of raspberry GPIO</small>
+    	<label>Raspberry Pin:</label>
+    	<input type="text" class="form-control" name="pin" id="pin" placeholder="GPIO Pin Number">
+    	<a href="#" data-toggle="modal" data-target="#imgModal"><small class="form-text text-muted">Help pin layout here</small></a>
     </div>
 
     <div class="form-group">
     	<label>Is it a loop?:</label>
     	<div class="row">
-    		<div class="col-sm"><span class="badge badge-pill badge-success handler"><span>ON</span> <i class="fas fa-check"></i></span></div>
+    		<div class="col-sm"><span class="badge badge-pill badge-success loop"><span>ON</span> <i class="fas fa-check"></i></span></div>
     		<div class="col-sm"><label>Repeat time:</label></div>
     		<div class="col-sm"><input type="text" class="form-control" name="repeat_time" id="repeat_time" placeholder="Time in minutes"></div>
     		<div class="col-sm"><label>Duration time:</label></div>
@@ -36,8 +36,35 @@
 
   </div><!-- /.container -->
 
+  <div id="imgModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="far fa-image"></i> Pin Layout</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img id="pin_img" src="{{ url_for('static', filename='image/pin.png')}}">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <style type="text/css">
-    
+    #pin_img {
+        max-width: 300px;
+    }
+    /* For devices 400px and larger: */
+    @media only screen and (min-device-width: 400px) {
+        #pin_img {
+            max-width: 466px;
+        }
+    }
   </style>
   {% endblock %}
 
@@ -46,7 +73,7 @@
     	$('#btn_save').click(function(){
     		let controller = {
     			name: $('#name').val(),
-    			port: $('#port').val(),
+    			pin: $('#pin').val(),
     			status: 'ON',
     			isLoop: (($('.handler').children().text() == 'ON') ? true : false),
     			repeat_time: $('#repeat_time').val(),

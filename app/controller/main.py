@@ -1,6 +1,7 @@
 # Author: Junior Tada
 import flask
 from app import app, log
+from .gpio import Led
 from flask import render_template, request, redirect, url_for, jsonify, send_from_directory
 from platform import python_version
 import os
@@ -118,12 +119,18 @@ def _toggle_status():
                 file.seek(0)
                 json.dump(data, file, indent=4)
                 file.truncate()
-                msg = {'value': 'Toggle Success', 'status': 'SUCCESS'}
-                # TODO
-                # log status change
+            
+            # action on gpio
+            pin = int(data['schemas'][id]['pin'])
+            if pin:
+                action = Led(pin)
+                action.set_status(data['schemas'][id]['status'])
+            # TODO
+            # log status change
+            msg = {'value': 'Toggle Success', 'status': 'SUCCESS'}
     except Exception as e:
-        msg = {'value': e, 'status': 'ERROR'}
+        msg = {"value": e, "status": "ERROR"}
     except UnboundLocalError as e:
-        msg = {'value': e, 'status': 'ERROR'}
+        msg = {"value": e, "status": "ERROR"}
     finally:
         return jsonify(return_msg=msg)

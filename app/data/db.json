@@ -1,20 +1,12 @@
 {
     "schemas": [
         {
-            "name": "Aeroponics 1",
-            "pin": "11",
+            "name": "Led",
+            "pin": "17",
             "status": "ON",
             "isLoop": false,
-            "repeat_time": "60",
-            "duration_time": "1.5"
-        },
-        {
-            "name": "Hydroponic 2",
-            "pin": "13",
-            "status": "OFF",
-            "isLoop": false,
-            "repeat_time": "60",
-            "duration_time": "1.5"
+            "repeat_time": "",
+            "duration_time": ""
         }
     ]
 }

@@ -1,7 +1,7 @@
 # Author: Junior Tada
 import flask
 from app import app, log
-from .gpio import Led
+from .gpio import Loop # Led
 from flask import render_template, request, redirect, url_for, jsonify, send_from_directory
 from platform import python_version
 import os
@@ -122,9 +122,16 @@ def _toggle_status():
             
             # action on gpio
             pin = int(data['schemas'][id]['pin'])
-            if pin:
-                action = Led(pin)
-                action.set_status(data['schemas'][id]['status'])
+            status = data['schemas'][id]['status']
+            if status == 'ON':
+                t1 = Loop('teste')
+                t1.start()
+                time.sleep(2)
+                t1.kill()
+                t1.join()
+            # if pin:
+            #     action = Led(pin)
+            #     action.set_status(data['schemas'][id]['status'])
             # TODO
             # log status change
             msg = {'value': 'Toggle Success', 'status': 'SUCCESS'}
